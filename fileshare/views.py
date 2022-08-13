@@ -1,24 +1,51 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.urls import reverse
 
-from . models import  File
+import io
+import qrcode
+from qrcode.image.svg import SvgImage
+
+
+from . models import  File, UserIPAddress
 
 # Create your views here.
 
+
 def index(request):
     if request.method == 'GET':
+        userip = request.META.get('REMOTE_ADDR')
+        try:
+            UserIPAddress.objects.get(ipaddress=userip)
+        except UserIPAddress.DoesNotExist:
+            UserIPAddress.objects.create(ipaddress=userip)
+            
         return render(request, 'index.html')
+        
     else:
-        info = request.FILES.get('files')
-        file = File.objects.create(file=info)
-        context = {'fileid':file.id}
-        print(context)
+        uploadedfile = request.FILES.get('files')
+        file = File.objects.create(file=uploadedfile)
+
+        root_url = ''
+        qr_url = reverse('fileshare:recive') + f'?fileid={file.pk}/'
+        
+        img = qrcode.make(qr_url, image_factory=SvgImage, box_size=15, border=2)
+        stream = io.BytesIO()  
+        img.save(stream)    # Convert to byte array and store in stream
+
+        context = {'fileid': file.id, 'qrcode': stream.getvalue().decode()}
         return render(request, 'index.html', context)
 
 
 def recive(request):
     if request.method == 'GET':
         fileid = request.GET['fileid']
-        file = get_object_or_404(File, pk=int(fileid))
-        print(f'\n{file}\n')
+        try:
+            file = get_object_or_404(File, pk=int(fileid))
+        except Exception as e:
+            messages.warning(request, 'Key is Not Found or Expired!')
+            return render(request, 'index.html')
+                        
         context = {'userfile': file}
+        file.delete()
         return render(request, 'index.html', context)

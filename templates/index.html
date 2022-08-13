@@ -1,41 +1,63 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>File Share</title>
 </head>
+
 <body>
-    
-    <div class="content">
-        <h2>Send File</h2>
+
+    <a href="{% url 'fileshare:index' %}">File Share</a>
+
+
+    <div class="sendfile">
+        <h1>Send File</h1>
         {% if fileid %}
-            <h3>{{ fileid }}</h3>
-
+        <input type="text" class="copy-text" id="filekey" value="{{ fileid }}">
+        <button class="copy-text-button" onclick="myFunction()">
+            <img src="{% static 'images/copy.png' %}" alt="Copy the Key.">
+        </button>
+        
+        <strong>{{ qrcode | safe }}</strong>   <!-- for qr code  -->
         {% else %}
-            <form method="post" action="{% url 'fileshare:index' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="files" required> <br>
-                <button type="submit">Send</button>
-            </form>
+        <form method="post" action="{% url 'fileshare:index' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="files" required> <br> <br>
+            <button type="submit">Send</button>
+        </form>
         {% endif %}
-    </div>
+    </div> <br> <br>
 
-
-    <div class="content">
-        <h2>Recive File</h2>
+    <div class="recivefile">
+        <h1>Recive File</h1>
         {% if userfile %}
             <a href="{{userfile.file.url}}" download="abc">
-            <img src="{{ userfile.file | title}}" alt="{{ userfile.file | title}}" width="104" height="142">
-
-        {% else %}
-            <form method="get" action="{% url 'fileshare:reive' %}">
-                <input type="text" name="fileid" placeholder="Enter The Key" required> <br>
+            <button class="copy-text-button">
+                <img src="{% static 'images/download.png' %}" alt="Download Now.">
+            </button>
+            {% else %}
+            <form method="get" action="{% url 'fileshare:recive' %}">
+                <input class="input-type" name="fileid" placeholder="Enter The Key" required> <br> <br>
+                {% if messages %}
+                {% for message in messages %}
+                <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                </p>
+                {% endfor %}
+                {% endif %}
                 <button type="submit">Recive</button>
             </form>
         {% endif %}
+
     </div>
 
 </body>
+
+<script src="{% static 'js/myjs.js' %}"></script>
+
 </html>
