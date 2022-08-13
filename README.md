@@ -26,6 +26,9 @@ This webapp is for sending a file, anywhere in the World. Sender sends a file th
 
 `pip install -r requirements.txt`
 
+# Collect Static Files
+`(env) FileSharing> python manage.py collectstatic`
+
 # Run Project
 `(env) FileSharing> python manage.py runserver`
 
