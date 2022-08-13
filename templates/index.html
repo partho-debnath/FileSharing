@@ -36,7 +36,7 @@
     <div class="recivefile">
         <h1>Recive File</h1>
         {% if userfile %}
-            <a href="{{userfile.file.url}}" download="abc">
+            <a href="{{userfile.file.url}}" download="{{userfile.file}}">
             <button class="copy-text-button">
                 <img src="{% static 'images/download.png' %}" alt="Download Now.">
             </button>

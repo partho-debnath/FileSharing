@@ -26,8 +26,9 @@ def index(request):
         uploadedfile = request.FILES.get('files')
         file = File.objects.create(file=uploadedfile)
 
-        root_url = ''
-        qr_url = reverse('fileshare:recive') + f'?fileid={file.pk}/'
+        root_url = 'http://127.0.0.1:8000'
+        qr_url = root_url + reverse('fileshare:recive') + f'?fileid={file.pk}/'
+        print(qr_url)
         
         img = qrcode.make(qr_url, image_factory=SvgImage, box_size=15, border=2)
         stream = io.BytesIO()  
@@ -39,8 +40,10 @@ def index(request):
 
 def recive(request):
     if request.method == 'GET':
-        fileid = request.GET['fileid']
+        fileid = str(request.GET['fileid'])
+
         try:
+            fileid = fileid[:-1] if fileid.endswith('/') else fileid
             file = get_object_or_404(File, pk=int(fileid))
         except Exception as e:
             messages.warning(request, 'Key is Not Found or Expired!')
