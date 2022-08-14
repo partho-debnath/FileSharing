@@ -10,9 +10,9 @@ h1 {
     text-align: center;
 }
 
-a {
+a:link {
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    /* color: rgb(255, 255, 255); */ /* Home page link File Share */
     
 }
 
