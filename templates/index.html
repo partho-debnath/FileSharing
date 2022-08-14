@@ -25,9 +25,8 @@
                 <img src="{% static 'images/copy.png' %}" onclick="myFunction()" alt="Copy the Key.">
             </div>
             <div class="mygrid">
-                <strong>{{ qrcode | safe }}</strong> <!-- for qr code  -->
+                <span>{{ qrcode | safe }}</span> <!-- for qr code  -->
             </div>
-
 
             {% else %}
             <form method="post" action="{% url 'fileshare:index' %}" enctype="multipart/form-data">
@@ -39,7 +38,7 @@
         </div>
 
         <div class="container">
-            <h1>Recive File</h1>
+            <h1>Receive File</h1>
             {% if userfile %}
             <a href="{{userfile.file.url}}" download="{{userfile.file}}">
                 <img class="downolad" src="{% static 'images/download.png' %}" alt="Download Now.">
@@ -47,7 +46,7 @@
 
 
             {% else %}
-            <form method="get" action="{% url 'fileshare:recive' %}">
+            <form method="get" action="{% url 'fileshare:receive' %}">
                 <input class="input-type" name="fileid" placeholder="Enter The Key" required> <br> <br>
                 {% if messages %}
                 {% for message in messages %}
@@ -56,7 +55,7 @@
                 </p>
                 {% endfor %}
                 {% endif %}
-                <button type="submit">Recive</button>
+                <button type="submit">Receive</button>
             </form>
             {% endif %}
 

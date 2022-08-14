@@ -27,8 +27,7 @@ def index(request):
         file = File.objects.create(file=uploadedfile)
 
         root_url = 'http://127.0.0.1:8000'
-        qr_url = root_url + reverse('fileshare:recive') + f'?fileid={file.pk}/'
-        print(qr_url)
+        qr_url = root_url + reverse('fileshare:receive') + f'?fileid={file.pk}/'
         
         img = qrcode.make(qr_url, image_factory=SvgImage, box_size=15, border=2)
         stream = io.BytesIO()  
@@ -38,7 +37,7 @@ def index(request):
         return render(request, 'index.html', context)
 
 
-def recive(request):
+def receive(request):
     if request.method == 'GET':
         fileid = str(request.GET['fileid'])
 
