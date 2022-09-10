@@ -33,13 +33,19 @@ def index(request):
         stream = io.BytesIO()  
         img.save(stream)    # Convert to byte array and store in stream
 
-        context = {'fileid': file.id, 'qrcode': stream.getvalue().decode()}
+        context = {'fileid': file.id, 'qrcode': stream.getvalue().decode(),
+        'key_expired_message': 'This key will expire after 7 days.'
+        }
         return render(request, 'index.html', context)
 
 
 def receive(request):
     if request.method == 'GET':
         fileid = str(request.GET['fileid'])
+
+        if len(fileid) != 6 or fileid.isnumeric() == False:
+            messages.warning(request, 'Please Enter Valid Key.')
+            return render(request, 'index.html')
 
         try:
             fileid = fileid[:-1] if fileid.endswith('/') else fileid
@@ -49,5 +55,4 @@ def receive(request):
             return render(request, 'index.html')
                         
         context = {'userfile': file}
-        file.delete()
         return render(request, 'index.html', context)

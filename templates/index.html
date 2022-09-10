@@ -27,7 +27,7 @@
             <div class="mygrid">
                 <span>{{ qrcode | safe }}</span> <!-- for qr code  -->
             </div>
-
+                <span>{{ key_expired_message }}</span>
             {% else %}
             <form method="post" action="{% url 'fileshare:index' %}" enctype="multipart/form-data">
                 {% csrf_token %}
