@@ -8,3 +8,5 @@ class FileshareConfig(AppConfig):
     def ready(self) -> None:    # override the ready method
         from .appsheduler import myJobScheduler
         myJobScheduler()
+
+        return None

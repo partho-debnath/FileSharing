@@ -129,7 +129,7 @@ STATIC_ROOT = Path.joinpath(BASE_DIR, 'staticfiles')
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+MEDIA_ROOT = Path.joinpath(BASE_DIR, 'medias')
 
 
 # Default primary key field type

@@ -24,9 +24,8 @@ def content_file_name(instance, filename):
     else:
         local_time = localtime(now())
         time = str(local_time.time()).split('.')[0].replace(':', '-')
-        filename = '{}--{}.{}'.format(local_time.date(), time, file_extrention)
+        filename = 'mediafiles\{}--{}.{}'.format(local_time.date(), time, file_extrention)
     return filename
-
 
 
 class File(models.Model):
