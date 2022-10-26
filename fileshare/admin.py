@@ -1,10 +1,15 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 
 from . models import File, UserIPAddress
 
+
+# Unregister Group models here.
+admin.site.unregister(Group)
+
+
+
 # Register your models here.
-
-
 
 class AdminUserIPAddress(admin.ModelAdmin):
     list_display = ['ipaddress', ]

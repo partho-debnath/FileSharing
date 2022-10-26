@@ -23,3 +23,11 @@ urlpatterns = [
     path('myadmin/', admin.site.urls),
     path('', include('fileshare.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+'''
+admin panel basic customize
+'''
+admin.site.site_header = 'Admin Panel'
+admin.site.index_title = "Mysite"
+admin.site.site_title = 'File Sharing BD'
