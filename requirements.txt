@@ -2,6 +2,7 @@ APScheduler==3.9.1
 asgiref==3.5.2
 colorama==0.4.5
 Django==4.1
+djangorestframework==3.14.0
 pytz==2022.2.1
 pytz-deprecation-shim==0.1.0.post0
 qrcode==7.3.1

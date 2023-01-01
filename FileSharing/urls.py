@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('myadmin/', admin.site.urls),
     path('', include('fileshare.urls')),
+    path('file-share-bd-api/', include('fileshare.api.urls'))
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
