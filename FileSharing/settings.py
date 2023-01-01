@@ -140,6 +140,9 @@ MEDIA_ROOT = Path.joinpath(BASE_DIR, 'medias')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+APP_SCHEDULER_TIME = 1
+
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',

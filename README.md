@@ -32,4 +32,5 @@ This webapp is for sending a file, anywhere in the World. Sender sends a file th
 # Run Project
 `(env) FileSharing> python manage.py runserver`
 
-
+# Learn More [apscheduler](https://apscheduler.readthedocs.io/en/3.x/index.html)
+# Learn More [apscheduler interval](https://apscheduler.readthedocs.io/en/3.x/modules/triggers/interval.html)

@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django.conf import settings
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -9,6 +10,7 @@ from .models import File
 
 
 def deleteExpiredRecords() -> None:
+    print('---apps-----')
     File.objects.filter(datetime__lte=timezone.now()).delete()
 
     return None
@@ -16,7 +18,7 @@ def deleteExpiredRecords() -> None:
 
 def myJobScheduler() -> None:
     scheduler = BackgroundScheduler()
-    scheduler.add_job(deleteExpiredRecords, 'interval', days=1)
+    scheduler.add_job(deleteExpiredRecords, 'interval', days=settings.APP_SCHEDULER_TIME)
     scheduler.start()
 
     return None
