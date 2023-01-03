@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from random import randint
 
 import io
 import base64
@@ -28,21 +27,20 @@ from .serializers import FileSerializer
 class FileReceiveView(APIView):
 
     def post(self, request, *args, **kwargs):
-        context = request.data
-        context['id'] = randint(111111, 999999)
-        serializer = FileSerializer(data=context)
-
+        serializer = FileSerializer(data=request.data)
         if serializer.is_valid() == True:
             serializer.save()
-            context.pop('file')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         
-        img = qrcode.make(context['id'], image_factory=SvgImage, box_size=15, border=2)
+        img = qrcode.make(serializer.data['id'], image_factory=SvgImage, box_size=15, border=2)
         stream = io.BytesIO()  
         img.save(stream)    # Convert to byte array and store in stream
         base64_image = base64.b64encode(stream.getvalue()).decode()
+
+        context = dict()
+        context['id'] = serializer.data.get('id')
         context['qrImage'] = 'data:image/svg+xml;utf8;base64,' + base64_image
 
         return Response(context, status=status.HTTP_202_ACCEPTED)
