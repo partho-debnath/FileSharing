@@ -141,7 +141,7 @@ MEDIA_ROOT = Path.joinpath(BASE_DIR, 'medias')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# this will required for appsheduler.py, set Scheduling time
 APP_SCHEDULER_TIME = 1
 
 

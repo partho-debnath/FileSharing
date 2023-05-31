@@ -13,24 +13,28 @@ This webapp is for sending a file, anywhere in the World. Sender sends a file th
 
 # Environment Setup (Windows)
 ## Create Virtual Environment
-`python -m venv env`
+    python -m venv env
 
 ## Activate Virtual Environment
-`env\Scripts\activate`
+    env\Scripts\activate
 
 ## Deactivate Virtual Environment
-`env\Scripts\deactivate.bat`
+    env\Scripts\deactivate.bat
 
 ---
 # Install Project Dependency
 
-`pip install -r requirements.txt`
+    pip install -r requirements.txt
 
 # Collect Static Files
-`(env) FileSharing> python manage.py collectstatic`
+    python manage.py collectstatic
 
 # Run Project
-`(env) FileSharing> python manage.py runserver`
+    python manage.py runserver
 
+# Learn More [Django File Uploads](https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/)
+# Learn More [Django Uploaded Files and Upload Handlers](https://docs.djangoproject.com/en/4.2/ref/files/uploads/#django.core.files.uploadedfile.UploadedFile)
+# Learn More [ZIP archives](https://docs.python.org/3/library/zipfile.html)
 # Learn More [apscheduler](https://apscheduler.readthedocs.io/en/3.x/index.html)
 # Learn More [apscheduler interval](https://apscheduler.readthedocs.io/en/3.x/modules/triggers/interval.html)
+

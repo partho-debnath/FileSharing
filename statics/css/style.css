@@ -102,8 +102,8 @@ img:active {
 input {
     border-radius: 5px;
     border-color: #ebdede;
-
-    width: 23%;
+    border: gray 1px solid;
+    width: 30%;
 
     padding: 5px;
     text-align: center;
@@ -221,7 +221,10 @@ ul {
     color: white;
 }
 
+
+
 /*responsive*/
+
 @media(max-width: 767px) {
     .footer-col {
         width: 50%;
