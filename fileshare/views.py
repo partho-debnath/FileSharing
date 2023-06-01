@@ -8,7 +8,7 @@ import io
 import qrcode
 from qrcode.image.svg import SvgImage
 
-from . utils import getFileNameAsTime, getTemporaryFilePath
+from . utils import getFileNameAsTime, getTemporaryFilePath, get_media_storage_name
 from . models import  File, UserIPAddress
 
 
@@ -35,7 +35,7 @@ def index(request):
             if int(totalSize) > 104843779:
                 messages.warning(
                     request,
-                    'File size should not exceed 100MB. But your file size is %.3fMB' %(totalSize/oneMB)
+                    'File size should not exceed 100.000 MB. But your file size is %.3fMB' %(totalSize/oneMB)
                 )
                 return HttpResponseRedirect(reverse('fileshare:index'))
         
@@ -57,22 +57,23 @@ def index(request):
                  
                 Using read(), see below. then chunks().
                 '''
-                # file_data = uploaded_file.read()
-                # zip_file.writestr(zinfo_or_arcname= file_name, data=file_data)
+                file_data = uploaded_file.read()
+                zip_file.writestr(zinfo_or_arcname= file_name, data=file_data)
                 
 
                 '''
                 Using chunks() 
                 '''
-                temporary_file = getTemporaryFilePath(file_name)
-                with open(temporary_file, 'wb') as destination:
-                    for chunk in uploaded_file.chunks():
-                        destination.write(chunk)
-                zip_file.write(temporary_file) # write each uploaded file in a zip file.
-                os.remove(temporary_file)   # remove the temporary file
+                # temporary_file = getTemporaryFilePath(file_name)
+                # with open(temporary_file, 'wb') as destination:
+                #     for chunk in uploaded_file.chunks():
+                #         destination.write(chunk)
+                # zip_file.write(temporary_file) # write each uploaded file in a zip file.
+                # os.remove(temporary_file)   # remove the temporary file
 
 
-        file = File.objects.create(file=str(file_path))
+        file_name = os.path.join(get_media_storage_name(), str(file_path).split('/')[-1])
+        file = File.objects.create(file=file_name)
         
         domain = 'http://127.0.0.1:8000'
         qr_url = f"{domain}{reverse('fileshare:receive')}?fileid={file.pk}/"
