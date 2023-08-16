@@ -13,3 +13,6 @@ sqlparse==0.4.2
 typing_extensions==4.7.1
 tzdata==2022.1
 tzlocal==4.2
+
+
+django-crontab==0.7.1

@@ -8,7 +8,7 @@ from .models import File
 # from django.db.models.functions import Now
 
 def deleteExpiredRecords() -> None:
-    print('---apps-----')
+    print('---appsheduler.py-----')
     File.objects.filter(datetime__lte=timezone.now()).delete()
     return None
 
