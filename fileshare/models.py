@@ -26,6 +26,7 @@ class File(models.Model):
     def save(self, *args, **kwargs):
         self.id = randint(111111, 999999)
         super(File, self).save(*args, **kwargs)
+    
 
     def __str__(self):
         return str(self.datetime) + "  " + str(self.file)

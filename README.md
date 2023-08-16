@@ -1,4 +1,4 @@
-# FileSharing
+# FileSharing Django Web-Application
 ## Send file anywhere in the world.
 
 <p>
@@ -38,3 +38,5 @@ This webapp is for sending a file, anywhere in the World. Sender sends a file th
 # Learn More [apscheduler](https://apscheduler.readthedocs.io/en/3.x/index.html)
 # Learn More [apscheduler interval](https://apscheduler.readthedocs.io/en/3.x/modules/triggers/interval.html)
 
+# Learn More [QRCode, SVG Image Generator](https://pypi.org/project/qrcode/)
+# Learn More [QRCode, SVG Image Generator Home](https://github.com/lincolnloop/python-qrcode)

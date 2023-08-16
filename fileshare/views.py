@@ -6,7 +6,7 @@ from django.urls import reverse
 import os
 import io
 import qrcode
-from qrcode.image.svg import SvgImage
+from qrcode.image.svg import SvgPathImage
 
 from . utils import getFileNameAsTime, getTemporaryFilePath, get_media_storage_name
 from . models import  File, UserIPAddress
@@ -74,12 +74,22 @@ def index(request):
 
         file_name = os.path.join(get_media_storage_name(), str(file_path).split('/')[-1])
         file = File.objects.create(file=file_name)
-        
+        print(file.file.url)
         domain = 'http://127.0.0.1:8000'
         qr_url = f"{domain}{reverse('fileshare:receive')}?fileid={file.pk}/"
 
-        
-        img = qrcode.make(qr_url, image_factory=SvgImage, box_size=15, border=2)
+        qr = qrcode.QRCode(
+            version=1,
+            image_factory=SvgPathImage,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=15,
+            border=4,
+        )
+        qr.add_data(qr_url)
+        qr.make(fit=True)
+        img = qr.make_image(back_color=(241, 246, 247), fill_color=(243, 30, 30))
+        # img.save("C:/Users/parth/Downloads/Video/qr_web.svg")
+
         stream = io.BytesIO()  
         img.save(stream)    # Convert to byte array and store in stream
 
@@ -101,10 +111,10 @@ def receive(request):
         try:
             fileid = fileid[:-1] if fileid.endswith('/') else fileid
             file = get_object_or_404(File, pk=int(fileid))
-
+            print(file);
         except Exception as e:
             messages.warning(request, 'Key is Not Found or Expired!')
             return render(request, 'index.html')
-        
+    
         context = {'userfile': file}
         return render(request, 'index.html', context)
