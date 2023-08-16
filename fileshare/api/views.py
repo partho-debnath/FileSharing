@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
@@ -28,7 +29,6 @@ from .serializers import FileSerializer
 class FileReceiveView(APIView):
 
     def post(self, request, *args, **kwargs):
-       
         serializer = FileSerializer(data=request.data)
         if serializer.is_valid() == True:
             serializer.save()
@@ -92,4 +92,4 @@ class FileServeView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         else:
-            return Response({'error': 'Please Enter Valid ID.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Please enter valid PIN.'}, status=status.HTTP_400_BAD_REQUEST)
