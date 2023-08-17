@@ -1,4 +1,4 @@
-# FileSharing Django Web-Application
+# File Sharing Web Application
 ## Send file anywhere in the world.
 
 <p>
